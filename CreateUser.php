@@ -1,5 +1,6 @@
 <?php
     $userID = $_POST["user_id"];
+    $post = $_POST["post"];
 
     $mysqli = new mysqli("mysql.eecs.ku.edu", "evamorrison", "aipa9The", "evamorrison");
 
