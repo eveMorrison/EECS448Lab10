@@ -9,11 +9,15 @@
         exit();
     }
 
-    $query = "SELECT * FROM Users";
+    $query = "INSERT INTO Users (user_id) VALUES ('$userID')";
+    $result = $mysqli->query($query);
 
-    if($userID=="")
+    if($userID==""||!($result))
     {
         echo '<script>alert("Invalid User ID\nUnable to add user to database")</script>';
+    }
+    else{
+        echo "New user successfully added.<br>";
     }
 
     echo "User ID: " . $userID . "<br>";
