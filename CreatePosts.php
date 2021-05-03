@@ -10,31 +10,36 @@
         exit();
     }
 
-    $query2 = "SELECT EXISTS(SELECT user_id FROM Users WHERE user_id = '$userID')";
+    $query2 = "SELECT user_id FROM Users";
     $query = "INSERT INTO Posts (content,author_id) VALUES ('$post', '$userID')";
     
+    $inUsers = false;
 
     if($userID==""||$post =="")
     {
         echo '<script>alert("Invalid Input\nPlease fill all fields")</script>';
     }
     else{
-        $result = $mysqli->query($query);
-        $result2 = $mysqli->query($query2);
-        while ($row = $result2->fetch_assoc()){
-            
-        }
-        if(!$result){
-            echo '<script>alert("This user does not exist\nCreate a new user")</script>';
+        if($result = $mysqli->query($query2)){
+            while($row = $result->fetch_assoc()){
+                if($row["user_id"]==$userID){
+                    $inUsers = true;
+                    if($result2 = $mysqli->query($query)){
+                        echo "New post successfully added.<br>";
+                    }
+                    else{
+                        echo '<script>alert("Unable to upload post.")</script>';
+                    }
+                }
+            }
+            if($inUsers==false){
+                echo "User doesn't exist<br>Create a new user<br>";
+            }
         }
         else{
-            echo "New post successfully added.<br>";
+            echo '<script>alert("Unable to upload post.")</script>';
         }
-        
     }
-
-    echo "User ID: " . $userID . "<br>";
-    echo "Post: " . $post . "<br>";
 
     $mysqli->close();
 ?>
