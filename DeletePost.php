@@ -21,4 +21,8 @@
             }
         }
     }
+
+    $result->free();
+
+    $mysqli->close();
 ?>

@@ -41,5 +41,7 @@
         }
     }
 
+    $result->free();
+
     $mysqli->close();
 ?>

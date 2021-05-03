@@ -28,5 +28,7 @@
 
     echo "User ID: " . $userID . "<br>";
 
+    $result->free();
+
     $mysqli->close();
 ?>
