@@ -10,7 +10,8 @@
         exit();
     }
 
-    $query2 = "SELECT EXISTS(SELECT usesr_id FROM Users WHERE user_id = '$userID')";
+    $query2 = "SELECT EXISTS(SELECT user_id FROM Users WHERE user_id = '$userID')";
+    $query = "INSERT INTO Posts (content,author_id) VALUES ('$post', '$userID')";
     
 
     if($userID==""||$post =="")
@@ -19,8 +20,8 @@
     }
     else{
         $result = $mysqli->query($query);
-        $result2 = $mysqli->query($query);
-        if(!($result2)){
+        $result2 = $mysqli->query($query2);
+        if(!$result){
             echo '<script>alert("This user does not exist\nCreate a new user")</script>';
         }
         else{
