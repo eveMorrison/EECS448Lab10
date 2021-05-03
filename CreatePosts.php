@@ -21,6 +21,9 @@
     else{
         $result = $mysqli->query($query);
         $result2 = $mysqli->query($query2);
+        while ($row = $result2->fetch_assoc()){
+            
+        }
         if(!$result){
             echo '<script>alert("This user does not exist\nCreate a new user")</script>';
         }

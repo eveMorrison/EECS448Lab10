@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <style>
+            h1{
+                text-align: center;
+                color: navy;
+            }
+            p{
+                text-align: center;
+            }
+            table{
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <form action="DeletePost.php" method="post">
+            <h1>Select posts you would like to delete.</h1>
+                <p>
+                    <?php $mysqli = new mysqli("mysql.eecs.ku.edu", "evamorrison", "aipa9The", "evamorrison");
+    
+                        /* check connection */
+                        if ($mysqli->connect_errno) {
+                            printf("Connect failed: %s\n", $mysqli->connect_error);
+                            exit();
+                        }
+
+                        $query = "SELECT * FROM Posts ORDER BY 'post_id'";
+
+                        echo "<table class='users', border='1px'>";
+                        echo "<tr>";
+                        echo "<th>Post ID</th>";
+                        echo "<th>Post</th>";
+                        echo "<th>Author</th>";
+                        echo "<th>Delete?</th>";
+                        echo "</tr>";
+                        if ($result = $mysqli->query($query)) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<tr>";
+                                echo "<td>" .$row['post_id']. "</td>"; // Print a single column data
+                                echo "<td>" .$row['content']. "</td>";
+                                echo "<td>" .$row['author_id']. "</td>";
+                                echo "<td><input type='checkbox' id=" .$row['post_id']. " name='toDelete[]' value=" .$row['post_id']."></td>";
+                                echo "</tr>";
+                            }   
+                        }
+    
+                        /* free result set */
+                        $result->free();
+
+                        $mysqli->close(); ?>       
+                </p>
+                <p>
+                    <input type="submit" value="Submit">
+                    <input type="reset">
+                </p>
+        </form>
+    </body>
+</html>
